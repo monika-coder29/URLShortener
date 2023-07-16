@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Shortener</title>
+    <script>
+        function shortenURL() {
+            var originalURL = document.getElementById("originalURL").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "shorten", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var shortenedURL = xhr.responseText;
+                    document.getElementById("shortenedURL").innerHTML = shortenedURL;
+                }
+            };
+            xhr.send(JSON.stringify({ originalURL: originalURL }));
+        }
+    </script>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    <input type="text" id="originalURL" placeholder="Enter the URL">
+    <button onclick="shortenURL()">Shorten</button>
+    <p id="shortenedURL"></p>
+</body>
+</html>
